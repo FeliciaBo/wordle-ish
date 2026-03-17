@@ -2,7 +2,7 @@
 function feedback (guess, correctWord) {
 
 const result = [];
-const correctLetters = []; //array made of correct word
+const correctLetters = correctWord.split('');
 
 
 }
