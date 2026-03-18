@@ -18,7 +18,6 @@ if (!/^[A-Za-zÅÄÖåäö]+$/.test(guess)) {
   }
 
   // itterera genom för att hitta - letter: incorrect | misplaced | correct
-
   for (let i = 0; i < guess.length; i++) {
     if (guess[i] === correct[i]) {
       result.push(guess[i] + ": correct");
