@@ -3,14 +3,17 @@ const feedback = require('./feedback');
 
 
 /* Testsenarion:
-- Testa rätt svar
+- Testa rätt svar 
+- Testa svar som är delvis rätt, resten felplaceade
+- Testa svart som är delvis rätt, delvis felplaceade och resten fel
 - Testa med ord som ger: incorrect | misplaced | correct
+
 - Testa ord med dubletter av bokstäver: "hallå" och "cykla"
 */
 
 describe("Check output for different answers", () => {
 
-  test("Correct guess - all letters correct", () => {
+  test("Completely correct guess - all letters correct", () => {
     const result = feedback("CYKLA", "CYKLA");
     expect(result).toEqual([
       "C: correct",
@@ -21,7 +24,21 @@ describe("Check output for different answers", () => {
     ]);
   });
 
+test("Correct and incorrect guess - some letters are correct and some incorrect ", () => {
+    const result = feedback("BOWLA", "CYKLA");
+    expect(result).toEqual([
+      "B: incorrect",
+      "O: incorrect",
+      "W: incorrect",
+      "L: correct",
+      "A: correct"
+    ]);
+  });
+
+
 });
+
+
 
 
 /*Felhantering:
