@@ -9,7 +9,6 @@ const feedback = require('./feedback');
 */
 
 
-
 /* Testsenarion:
 Här testas funktionaliteten allteftersom den blir mer avancerad, 
 först testas helt rätt svar, sedan svar som är delvis rätt och delvis fel 
@@ -23,25 +22,25 @@ med "rätt" + "rätt och fel svar" kan man dra slutsatsen att koden för "mispla
 
 Utförligare beskrivningar för testerna:
 
-- Testa helt rätt svar: Alla bokstäver stämmer och är på rätt ställen
+1. Testa helt rätt svar: Alla bokstäver stämmer och är på rätt ställen
 
-- Testa svar som innehåller både rätt och fel: Bokstäverna är delvis rätt och på rätt ställen, 
+2. Testa svar som innehåller både rätt och fel: Bokstäverna är delvis rätt och på rätt ställen, 
 resten är helt fel och är inte med i det korrekta ordet. 
 Uppfyller kraven för första testet och mer.
 
-- Testa svar som innehåller både rätt, fel och felplacerade: 
+3. Testa svar som innehåller både rätt, fel och felplacerade: 
 Bokstäverna är delvis rätt, delvis fel och resten felplacerade
 som är delvis rätt, delvis fel och resten felplacerade. 
 Uppfyller kraven för de två föregående testerna och mer.
 
-- Testa ord med dubletter av bokstäver, där det endast är en av npkstaven i det korrekta ordet: 
+4. Testa ord med dubletter av bokstäver, där det endast är en av npkstaven i det korrekta ordet: 
 ex. "hallå" och "cykla" där bara ena L:et är korrekt och andra ör fel
 Uppfyller kraven för de föregående testerna och den specifika funtionaliteten.
 */
 
 describe("Check output for different answers", () => {
 
-  test("Completely correct guess", () => {
+  test("1. Completely correct guess", () => {
     const result = feedback("CYKLA", "CYKLA");
     expect(result).toEqual([
       "C: correct",
@@ -52,7 +51,7 @@ describe("Check output for different answers", () => {
     ]);
   });
 
-test("Correct and incorrect guess", () => {
+test("2. Incorrect guess", () => {
     const result = feedback("BOWLA", "CYKLA");
     expect(result).toEqual([
       "B: incorrect",
@@ -63,7 +62,7 @@ test("Correct and incorrect guess", () => {
     ]);
   });
 
-test("Correct, incorrect and misplaced guess", () => {
+test("3. Misplaced guess", () => {
     const result = feedback("LAKAN", "CYKLA");
     expect(result).toEqual([
       "L: misplaced",
@@ -74,8 +73,16 @@ test("Correct, incorrect and misplaced guess", () => {
     ]);
   });
 
-//test som kollar efter ord med dubbla bokstäver
-
+test("4. Duplicate letters", () => {
+    const result = feedback("HALLÅ", "CYKLA");
+    expect(result).toEqual([
+      "H: misplaced",
+      "A: misplaced",
+      "L: correct",
+      "L: misplaced",
+      "Å: incorrrect"
+    ]);
+  });
 });
 
 
