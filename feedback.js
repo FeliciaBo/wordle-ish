@@ -11,6 +11,9 @@ if (!guess) {
 if (guess.length !== correctWord.length) {
  throw new Error("Your guess must be the same lenght as the correct word")
 }
+if (!/^[A-Za-zÅÄÖåäö]+$/.test(guess)) {
+    throw new Error("Your guess can only contain letters");
+  }
 
 }
 
