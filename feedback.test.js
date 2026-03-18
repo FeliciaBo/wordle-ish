@@ -15,6 +15,19 @@ describe("Error handling for feedback", () => {
     .toThrow("Input cannot be empty");
 
    });
+
+   test("Trow errror message for too short guess", () => {
+    expect(() => feedback("HEJ", "CYKLA"))
+    .toThrow("Your guess must be the same lenght as the correct word");
+
+   });
+
+   test("Trow errror message too long guess", () => {
+    expect(() => feedback("HEJHEJHEJ", "CYKLA"))
+    .toThrow("Your guess must be the same lenght as the correct word");
+   });
+
+
   });
 
 
