@@ -1,0 +1,23 @@
+{
+  "name": "wordle-ish",
+  "version": "1.0.0",
+  "description": "",
+  "main": "feedback.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FeliciaBo/wordle-ish.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FeliciaBo/wordle-ish/issues"
+  },
+  "homepage": "https://github.com/FeliciaBo/wordle-ish#readme",
+  "devDependencies": {
+    "jest": "^30.3.0"
+  }
+}
