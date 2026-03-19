@@ -2,40 +2,46 @@ const feedback = require('./feedback');
 
 /* Innehåller följande:
 
--Testsenarion: Testar efter fel i själva funktionen
+-Testsenarion: Testar efter fel i själva funktionen/algoritmen 
+(correct, misplaced, incorrect och dubletter)
 
--Felhantering: Testar efter fel i användarens input (gissningen)
+-Felhantering: Testar rätt felmeddelanden,
+efter respektive fel i användarens input (gissningen)
 
 */
 
 
 /* Testsenarion:
-Här testas funktionaliteten allteftersom den blir mer avancerad, 
-först testas helt rätt svar, sedan svar som är delvis rätt och delvis fel 
-och svar som är delvis rätt, fel och med felplacerade bokstäver.
-Slutgiltigen testas svar som innehåller flera av samma bokstav, när bara en av dom är rätt.
+Testerna är uppbyggda från enklast till mest komplex funktionalitet.
+På så vis är det lättare att se var funktionaliteten gått sönder 
+utifrån var testerna misslyckas (om de gör det).
 
-Om testet misslyckas bör det göra det nerifrån och upp. Utifrån var det går fel kan man 
-bestämma var funktionaliteten gått sönder: ex. om den bara klarar av de två första testerna 
-med "rätt" + "rätt och fel svar" kan man dra slutsatsen att koden för "misplaced" inte fungerar.
+1. Testa helt rätt svar: 
+Alla bokstäver stämmer och är på rätt ställen.
+Allt borde därför vara "corect".
 
+2. Testa svar som innehåller både rätt och felplacerade: 
+Alla ord finns alltså med, men vissa är på fel ställen.
+Testar den simplaste versionen av felplacerade bokstaver 
+(ej dubletter)
 
-Utförligare beskrivningar för testerna:
+3. Testa svar som innehåller både rätt och fel: 
+Bokstäverna är antingen rätt och på rätt ställen, 
+eller inte med i ordet alls.
+Testar för bokstäver som är helt fel.
 
-1. Testa helt rätt svar: Alla bokstäver stämmer och är på rätt ställen
-
-2. Testa svar som innehåller både rätt och fel: Bokstäverna är delvis rätt och på rätt ställen, 
-resten är helt fel och är inte med i det korrekta ordet. 
-Uppfyller kraven för första testet och mer.
-
-3. Testa svar som innehåller både rätt, fel och felplacerade: 
-Bokstäverna är delvis rätt, delvis fel och resten felplacerade
-som är delvis rätt, delvis fel och resten felplacerade. 
-Uppfyller kraven för de två föregående testerna och mer.
-
-4. Testa ord med dubletter av bokstäver, där det endast är en av npkstaven i det korrekta ordet: 
+4. Testa ord med dubletter av bokstäver:
+Endast är en av bokstäverna i det korrekta ordet: 
 ex. "hallå" och "cykla" där bara ena L:et är korrekt och andra ör fel
-Uppfyller kraven för de föregående testerna och den specifika funtionaliteten.
+Testar den mer komplexa funtionaliteten för felplacerade ord
+
+Vad är trasigt?
+Om test nr. _ misslyckas:
+- 1: grundlogiken är trasig
+- 2: "misplaced"-logiken är fel/trasig
+- 3: "incorrect"-logiken är fel/trasig
+- 4: dublett-logiken är fel/trasig
+
 */
 
 describe("Check output for different answers", () => {
@@ -51,7 +57,18 @@ describe("Check output for different answers", () => {
     ]);
   });
 
-test("2. Incorrect guess", () => {
+  test("2. Misplaced guess", () => {
+    const result = feedback("CYALK", "CYKLA");
+    expect(result).toEqual([
+      "C: correct",
+      "Y: correct",
+      "A: misplaced",
+      "L: correct",
+      "K: misplaced"
+    ]);
+  });
+
+test("3. Incorrect guess", () => {
     const result = feedback("BOWLA", "CYKLA");
     expect(result).toEqual([
       "B: incorrect",
@@ -62,25 +79,16 @@ test("2. Incorrect guess", () => {
     ]);
   });
 
-test("3. Misplaced guess", () => {
-    const result = feedback("LAKAN", "CYKLA");
-    expect(result).toEqual([
-      "L: misplaced",
-      "A: misplaced",
-      "K: correct",
-      "A: misplaced",
-      "N: incorrrect"
-    ]);
-  });
+
 
 test("4. Duplicate letters", () => {
     const result = feedback("HALLÅ", "CYKLA");
     expect(result).toEqual([
-      "H: misplaced",
+      "H: incorrect",
       "A: misplaced",
+      "L: incorrect",
       "L: correct",
-      "L: misplaced",
-      "Å: incorrrect"
+      "Å: incorrect"
     ]);
   });
 });
@@ -90,13 +98,14 @@ test("4. Duplicate letters", () => {
 
 /*Felhantering:
 Här testas felhantering för användarens gissning, som ska avbryta funktionen och 
-ge ett felmeddelande om gissningen inte uppfyller kraven för input:
+ge ett felmeddelande om gissningen inte uppfyller kraven för input.
 
-- Testa tom input
-- Testa för kort input
-- Testa för lång input
-- Testa input med specialtecken 
-- Testa input med siffror
+Saker som testas:
+- Tom input
+- För kort input
+- För lång input
+- Input med specialtecken 
+- Input med siffror
 
 */
 
