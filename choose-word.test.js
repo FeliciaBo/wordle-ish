@@ -14,6 +14,8 @@ Funktionalitet:
   som uppstår när inget passande ord finns
 - Output: Det slumpmässigt utvalda ordet */
 
+const chooseWord = require("./choose-word");
+
 /* testa funtionalitet:
 - testa words
 - testa wordLength
@@ -27,17 +29,20 @@ describe("Checks word selection - chooseWord", () => {
  const words = ["CYKLA", "HALLÅ, HUNDAR", "TRE", "BOWLA"]; 
  
  test("finds words with correct length", () => {
-    
+ const result = chooseWord(words, 5, false);
+    expect(result.length).toBe(5);
    
   });
 
   test("finds words with unique letters when required", () => {
-    
+ const result = chooseWord(words, 5, true);
+    expect(["CYKLA", "BOWLA"]);
    
   });
 
   test("throws error for 'no matching words' ", () => {
-    
+    expect(() => chooseWord(words, 15, false))
+      .toThrow("No matching words found");
    
   });
 });
@@ -51,17 +56,20 @@ describe("Checks word selection - chooseWord", () => {
 describe("Throws errors for wrong inputs - chooseWord", () => {
 
  test("empty list if words", () => {
-    
+  expect(() => chooseWord([], 5, false))
+      .toThrow("Word list cannot be empty");  
    
   });
 
-  test("invalid wordLength", () => {
-    
+  test("invalid word length", () => {
+    expect(() => chooseWord(["CYKLA"], -1, false))
+      .toThrow("Invalid word length - cannot be negative");  
    
   });
 
   test("unique is not boolean", () => {
-    
+    expect(() => chooseWord(["CYKLA"], 5, "maybe"))
+      .toThrow("Unique must be boolean");  
    
   });
 });
