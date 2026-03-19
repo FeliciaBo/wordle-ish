@@ -6,11 +6,23 @@
   än en gång i ordet, eller om alla bokstäver måste vara unika
   */
 
-function chooseWord(words, wordLenght, unique) {
+function chooseWord(words, length, unique) {
 
-//words = ord
+//words = array med ord
 //wordLength = siffra
-//unique = true/false
+//unique = true/false (boolean)
+
+if (!Array.isArray(words) || words.length === 0) {
+    throw new Error("Word list cannot be empty");
+  }
+
+  if (typeof length !== "number" || length <= 0) {
+    throw new Error("Invalid word length - cannot be negative");
+  }
+
+  if (typeof unique !== "boolean") {
+    throw new Error("Unique must be boolean");
+  }
 
 }
 
