@@ -109,30 +109,30 @@ Saker som testas:
 
 */
 
-describe("Trow error messages for wrong input", () => {
+describe("Throw error messages for wrong input", () => {
 
-    test("Empty guess", () => {
+    test("empty guess", () => {
     expect(() => feedback("", "CYKLA"))
     .toThrow("Input cannot be empty");
 
    });
 
-   test("Too short guess", () => {
+   test("too short guess", () => {
     expect(() => feedback("HEJ", "CYKLA"))
     .toThrow("Your guess must be the same lenght as the correct word");
    });
 
-   test("Too long guess", () => {
+   test("too long guess", () => {
     expect(() => feedback("HEJHEJHEJ", "CYKLA"))
     .toThrow("Your guess must be the same lenght as the correct word");
    });
   
-  test("Guess includes special characters", () => {
+  test("guess includes special characters", () => {
     expect(() => feedback("Hej!!", "CYKLA"))
     .toThrow("Your guess can only contain letters");
    });
 
-  test("Guess includes numbers", () => {
+  test("guess includes numbers", () => {
     expect(() => feedback("12345", "CYKLA"))
     .toThrow("Your guess can only contain letters");
    });

@@ -6,7 +6,11 @@
   än en gång i ordet, eller om alla bokstäver måste vara unika
   */
 
-function chooseWord(word, wordLenght, unique) {
+function chooseWord(words, wordLenght, unique) {
+
+//words = ord
+//wordLength = siffra
+//unique = true/false
 
 }
 
