@@ -23,7 +23,12 @@ if (!Array.isArray(words) || words.length === 0) {
   if (typeof unique !== "boolean") {
     throw new Error("Unique must be boolean");
   }
+   let filtered = words.filter(word => word.length === length);
 
+
+  const randomIndex = Math.floor(Math.random() * filtered.length);
+  
+  return filtered[randomIndex];
 }
 
 module.exports = chooseWord;
