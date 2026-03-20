@@ -12,33 +12,34 @@ function chooseWord(words, length, unique) {
 //wordLength = siffra
 //unique = true/false (boolean)
 
-if (!!Number.isInteger(length) || length <= 0) {
+  if (!Array.isArray(words) || words.length === 0) {
     throw new Error("Word list cannot be empty");
   }
 
-  if (typeof length !== "number" || length <= 0) {
-    throw new Error("Invalid word length - cannot be negative");
+  if (!Number.isInteger(length) || length <= 0) {
+    throw new Error("Word length must be a positive integer");
   }
 
   if (typeof unique !== "boolean") {
     throw new Error("Unique must be boolean");
   }
-   let filtered = words.filter(word => word.length === length);
+  
+   let filteredWords = words.filter(word => word.length === length);
 
 if (unique) {
-    filtered = filtered.filter(word => {
+    filteredWords = filteredWords.filter(word => {
       const letters = new Set(word.split(""));
       return letters.size === word.length;
     });
   }
 
-  if (filtered.length === 0) {
+  if (filteredWords.length === 0) {
     throw new Error("No matching word found");
   }
 
-  const randomIndex = Math.floor(Math.random() * filtered.length);
+  const randomIndex = Math.floor(Math.random() * filteredWords.length);
   
-  return filtered[randomIndex];
+  return filteredWords[randomIndex];
 }
 
 module.exports = chooseWord;

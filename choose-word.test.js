@@ -26,7 +26,7 @@ const chooseWord = require("./choose-word");
 describe("Checks word selection - chooseWord", () => {
 
  //mock-lista med ord
- const words = ["CYKLA", "HALLÅ, HUNDAR", "TRE", "BOWLA"]; 
+ const words = ["CYKLA", "HALLÅ, HUNDAR", "TRE"]; 
  
  test("finds words with correct length", () => {
  const result = chooseWord(words, 5, false);
@@ -34,10 +34,14 @@ describe("Checks word selection - chooseWord", () => {
    
   });
 
-  test("finds words with unique letters when required", () => {
+  test("finds words with without unique letters", () => {
  const result = chooseWord(words, 5, true);
     expect(["CYKLA", "BOWLA"]).toContain(result);
-   
+  });
+
+  test("finds words with with unique letters", () => {
+ const result = chooseWord(words, 5, false);
+    expect(["CYKLA","HALLÅ"]).toContain(result);
   });
 
   test("throws error for 'no matching words' ", () => {
@@ -63,9 +67,14 @@ describe("Throws errors for wrong inputs - chooseWord", () => {
 
   test("invalid word length", () => {
     expect(() => chooseWord(["CYKLA"], -1, false))
-      .toThrow("Invalid word length - cannot be negative");  
+      .toThrow("Word length must be a positive integer");  
    
   });
+
+  test("length is not an integer", () => {
+  expect(() => chooseWord(["CYKLA"], 5.5, false))
+    .toThrow("Word length must be a positive integer");
+});
 
   test("unique is not boolean", () => {
     expect(() => chooseWord(["CYKLA"], 5, "maybe"))
