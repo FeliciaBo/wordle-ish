@@ -25,6 +25,16 @@ if (!Array.isArray(words) || words.length === 0) {
   }
    let filtered = words.filter(word => word.length === length);
 
+if (unique) {
+    filtered = filtered.filter(word => {
+      const letters = new Set(word.split(""));
+      return letters.size === word.length;
+    });
+  }
+
+  if (filtered.length === 0) {
+    throw new Error("No matching word found");
+  }
 
   const randomIndex = Math.floor(Math.random() * filtered.length);
   
