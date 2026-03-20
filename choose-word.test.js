@@ -36,13 +36,13 @@ describe("Checks word selection - chooseWord", () => {
 
   test("finds words with unique letters when required", () => {
  const result = chooseWord(words, 5, true);
-    expect(["CYKLA", "BOWLA"]);
+    expect(["CYKLA", "BOWLA"]).toContain(result);
    
   });
 
   test("throws error for 'no matching words' ", () => {
     expect(() => chooseWord(words, 15, false))
-      .toThrow("No matching words found");
+      .toThrow("No matching word found");
    
   });
 });
