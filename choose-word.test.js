@@ -3,27 +3,42 @@ const chooseWord = require("./choose-word");
 /* Innehåller följande:
 
 -Testsenarion: Testar efter fel i själva funktionen/algoritmen 
-efter respektive input (words, length, unique)
+för "lenght" och "unique". Testar inte "words" eftersom
+testet använder sig av en mock-lista.
 
 -Felhantering: Testar rätt felmeddelanden,
-efter respektive fel i användarens input
+efter respektive fel i användarens input. 
+Här testas även "words".
 
 */
 
 
-/* testa funtionalitet:
-- testa words
-- testa wordLength
-- testa unique
+/* Testsenarion:
+Testar funtionalitet alleftersom de dyker upp i funktionen.
+Words är en mock-lista med alla ord. Den är alltså 
+självständig från orden som faktiskt är med, 
+för att hitta fel i filtreringen.
 
-- testa ingen matchning
+- Length (längd på ord):
+Testar att längden på orden som filtrera stämmer överens
+med filteringen som gjorts:
+- length = 5, bara ord på 5 bokstäver visas
+
+- Unique (om det får vara dubletter av bokstäver i order eller ej):
+Testar att valet av dubletter eller ej stämmer överens med filtreringen:
+- unique = false, ord med dubletter tillåts (såsom order HALLÅ med 2st "L")
+- unique = true, bara ord utan dubetter tillåts (alltså inte ordet HALLÅ)
+
+- Om inget ord stämmer in på filtreringen: 
+Korrekt felmeddelande visas.
+- length = 15, och det finns inget ord med 15 bokstäver
 
 */
 
 describe("Checks word selection - chooseWord", () => {
 
  //mock-lista med ord
- const words = ["CYKLA", "HALLÅ, HUNDAR", "TRE"]; 
+ const words = ["CYKLA", "HALLÅ", "HUNDAR", "TRE"]; 
  
  test("finds words with correct length", () => {
  const result = chooseWord(words, 5, false);
@@ -31,14 +46,14 @@ describe("Checks word selection - chooseWord", () => {
    
   });
 
-  test("finds words with without unique letters", () => {
- const result = chooseWord(words, 5, true);
-    expect(["CYKLA", "BOWLA"]).toContain(result);
-  });
-
   test("finds words with with unique letters", () => {
  const result = chooseWord(words, 5, false);
     expect(["CYKLA","HALLÅ"]).toContain(result);
+  });
+
+  test("finds words with without unique letters", () => {
+ const result = chooseWord(words, 5, true);
+    expect(["CYKLA"]).toContain(result);
   });
 
   test("throws error for 'no matching words' ", () => {
@@ -48,19 +63,29 @@ describe("Checks word selection - chooseWord", () => {
   });
 });
 
-/* testa felhantering för:
-- testa words
-- testa wordLength:
+/* Testar felhantering för:
+- "words"
+ - tom lista
+ - fel typ av input
+ 
+- "length"
   - negativt tal
   - decimalt tal
-- testa unique
+
+- "unique"
 */
 
 describe("Throws errors for wrong inputs - chooseWord", () => {
 
- test("empty list if words", () => {
+ test("empty list of words", () => {
   expect(() => chooseWord([], 5, false))
       .toThrow("Word list cannot be empty");  
+   
+  });
+
+  test("words is not array", () => {
+  expect(() => chooseWord("POTATIS", 5, false))
+      .toThrow("Words must be array");  
    
   });
 

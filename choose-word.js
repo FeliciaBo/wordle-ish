@@ -19,8 +19,12 @@ function chooseWord(words, length, unique) {
 
   //felhantering
 
-  if (!Array.isArray(words) || words.length === 0) {
+  if (words.length === 0) {
     throw new Error("Word list cannot be empty");
+  }
+
+  if (!Array.isArray(words)) {
+    throw new Error("Words must be array");
   }
 
   if (!Number.isInteger(length) || length <= 0) {
