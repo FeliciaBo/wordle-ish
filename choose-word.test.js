@@ -46,14 +46,14 @@ describe("Checks word selection - chooseWord", () => {
    
   });
 
-  test("finds words with with unique letters", () => {
+  test("finds words with unique letters", () => {
  const result = chooseWord(words, 5, false);
     expect(["CYKLA","HALLÅ"]).toContain(result);
   });
 
   test("finds words with without unique letters", () => {
  const result = chooseWord(words, 5, true);
-    expect(["CYKLA"]).toContain(result);
+    expect(result).toBe("CYKLA");
   });
 
   test("throws error for 'no matching words' ", () => {
@@ -63,29 +63,41 @@ describe("Checks word selection - chooseWord", () => {
   });
 });
 
-/* Testar felhantering för:
+/* Testar felhantering.
+Testar respektive fel i input och skickar ut rätt felmeddelande:
+
 - "words"
- - tom lista
- - fel typ av input
+ - Fel typ av input:
+ Input är inte en array
+
+ - Tom lista:
+ Array:en med ord är tom
+ 
  
 - "length"
-  - negativt tal
-  - decimalt tal
+  - Negativt tal:
+  Siffran för längd är negativ
 
-- "unique"
+  - Decimalt tal:
+  Siffran för längd är ett deicmalt tal (inte ett heltal)
+
+- "unique":
+Är inte en Boolean (true/false)
+
 */
 
 describe("Throws errors for wrong inputs - chooseWord", () => {
 
- test("empty list of words", () => {
-  expect(() => chooseWord([], 5, false))
-      .toThrow("Word list cannot be empty");  
-   
-  });
 
   test("words is not array", () => {
   expect(() => chooseWord("POTATIS", 5, false))
-      .toThrow("Words must be array");  
+      .toThrow("Words must be an array");  
+   
+  });
+
+ test("empty list of words", () => {
+  expect(() => chooseWord([], 5, false))
+      .toThrow("Word list cannot be empty");  
    
   });
 
