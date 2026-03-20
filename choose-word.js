@@ -12,7 +12,7 @@ function chooseWord(words, length, unique) {
 //wordLength = siffra
 //unique = true/false (boolean)
 
-if (!Array.isArray(words) || words.length === 0) {
+if (!!Number.isInteger(length) || length <= 0) {
     throw new Error("Word list cannot be empty");
   }
 
